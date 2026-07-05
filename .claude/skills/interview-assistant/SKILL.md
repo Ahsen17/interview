@@ -1,5 +1,5 @@
 ---
-name: interview-assistant-agent
+name: interview-assistant
 description: Use when preparing for technical interviews from this repository — analyzing a target job posting, generating or tailoring a resume to a role, building a study or gap plan, creating mock interview questions, drafting answer scripts or project/STAR stories, or evaluating completed mock interviews. Targets roles such as AI Agent developer, backend engineer, LLM application engineer, and RAG engineer.
 ---
 

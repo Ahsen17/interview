@@ -1,5 +1,5 @@
 ---
-name: interview-assistant-agent
+name: interview-assistant
 description: Build interview preparation from this resume repository. Use when Codex needs to analyze a target job, personal resume/work/project experience, local technical question bank, and local or web interview experiences to create gap analysis, study plans, mock interview questions, answer scripts, project storytelling, resume improvement suggestions, or technical interview coaching for roles such as AI Agent developer, backend engineer, LLM application engineer, RAG engineer, or related software positions.
 ---
 
