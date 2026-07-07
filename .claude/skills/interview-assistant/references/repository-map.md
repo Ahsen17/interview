@@ -1,7 +1,5 @@
 # Repository Map
 
-Detailed reference for the interview-assistant-agent skill: source folders, default target, output locations, naming rules, and full artifact templates. Read this before producing any deliverable. Authoritative repo rules live in the root `CLAUDE.md` / `AGENTS.md`; if anything conflicts, those win.
-
 ## Source Folders
 
 - `岗位要求/`: Target company and role requirements, organized as `岗位要求/公司/职位/岗位介绍.md`. Prefer the most specific nested role folder. Read `岗位介绍.md` and `岗位要求.md` together when both exist. If `岗位要求.md` is missing and role analysis is requested, create it from `岗位介绍.md`.
@@ -14,9 +12,9 @@ Detailed reference for the interview-assistant-agent skill: source folders, defa
 
 When the user does not specify a target role, assume the current target is:
 
-`岗位要求/XX 公司/后端开发工程师/`
+`岗位要求/<目标公司A>/<目标岗位A>/`
 
-State this assumption before producing role-specific analysis. Replace `XX 公司` with the actual company folder once the user names one.
+State this assumption before producing role-specific analysis.
 
 ## Recommended Output Folder
 
@@ -28,10 +26,11 @@ Create the folder if it does not exist. Do not overwrite existing preparation fi
 
 Task-specific outputs override this default:
 
+- Candidate profile update: `个人简历/面试准备/个人画像.md`
 - Job requirement extraction: `岗位要求/公司/职位/岗位要求.md`
 - Targeted delivery resume: `个人简历/职位-公司-简历.md`
-- Mock interview questions: `面试模拟/职位-公司-yyyyMMdd-HHmmss.md`
-- Mock interview evaluation: update the corresponding mock file or create `面试模拟/职位-公司-yyyyMMdd-HHmmss-评估.md`, depending on the user's request.
+- Mock interview questions: `面试模拟/职位-公司-${日期时间戳}.md`
+- Mock interview evaluation: update the corresponding mock file or create `面试模拟/职位-公司-${日期时间戳}-评估.md`, depending on the user's request.
 
 Use timestamp format `yyyyMMdd-HHmmss` for mock interview filenames unless the user requests another format.
 
@@ -39,10 +38,32 @@ Use timestamp format `yyyyMMdd-HHmmss` for mock interview filenames unless the u
 
 - Do not use numeric order prefixes in Markdown filenames. Express reading order in `知识题库/知识题库阅读索引.md`.
 - Preserve existing Chinese directory and role names.
-- For ByteDance/Douyin, use the company name already present in the folder when deriving filenames. If the user explicitly says `XX 公司`, use `XX 公司` in generated resume and mock filenames.
+- For a named target, use the company and role names already present in the selected folder when deriving filenames. If the user provides an explicit target alias, use that alias consistently in generated resume and mock filenames.
 - Never overwrite source resume, work experience, project experience, or interview notes unless the user explicitly asks for an update.
 
 ## Useful Artifact Templates
+
+### 个人画像.md
+
+Use sections:
+
+1. 个人定位摘要
+2. 履职轨迹与能力演进
+3. 核心经验地图
+4. 技术能力矩阵
+5. 代表项目证据
+6. 面试优势
+7. 高风险短板
+8. 目标岗位匹配方向
+9. 简历与项目讲述优化点
+10. 30/60/90 天能力提升计划
+
+Rules:
+
+- Read `个人简历/README.md`, the main resume, `工作经历.md`, and `项目经历.md`.
+- Cite local source files for each major conclusion.
+- Label evidence as `强证据`, `弱证据`, `缺失证据`, or `待用户确认`.
+- Do not turn coaching judgments into resume facts unless the source material already proves them.
 
 ### 岗位要求.md
 
@@ -136,6 +157,12 @@ For each project, include:
 
 Use Q-only entries. Do not provide answers in the initial mock interview artifact.
 
+Scope rule:
+
+- For a company-role-specific mock interview, the selected `岗位要求/公司/职位/岗位要求.md` is the hard boundary of the QA scope.
+- `网络面经/`, `个人简历/`, and `知识题库/` can be used only to support wording, source evidence, expected depth, follow-up style, or scoring details.
+- Do not generate questions that cannot be mapped back to a concrete requirement, preferred qualification, implicit interview signal, or high-probability interview topic in the selected role's `岗位要求.md`.
+
 Recommended front matter:
 
 ```markdown
@@ -146,7 +173,7 @@ Recommended front matter:
 - 目标岗位：
 - 依据材料：
 - 轮次设计：
-- 使用说明：请直接在每道题的“我的回答”下作答；初版不提供参考答案，评估阶段再补充。
+- 使用说明：请直接在每道题的"我的回答"下作答；初版不提供参考答案，评估阶段再补充。
 ```
 
 Recommended question block:
@@ -156,6 +183,7 @@ Recommended question block:
 
 - 问题：
 - 来源或参考：
+- 对应岗位要求：
 - 考察点：
 - 预期回答深度：
 - 追问方向：

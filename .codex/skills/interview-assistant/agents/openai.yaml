@@ -1,4 +1,4 @@
 ﻿interface:
   display_name: "面试助手 Agent"
-  short_description: "基于岗位、简历、题库和面经生成定制化面试提升方案材料"
-  default_prompt: "Use $interview-assistant-agent to analyze my resume against a target job and prepare focused technical interview practice."
+  short_description: "基于简历、项目、岗位、题库和面经维护个人画像并生成面试提升材料"
+  default_prompt: "Use $interview-assistant to update my candidate profile from my resume and project history, then prepare focused technical interview practice for a target role."

@@ -1,83 +1,129 @@
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This repository is an interview and resume preparation knowledge base with a minimal Python 3.12 `uv` project skeleton. The main content is Markdown.
+## Primary Workflow Tool
 
-Root files:
+**Use the `interview-assistant` skill for all interview preparation tasks.** This includes:
+- Analyzing personal resume, work experience, and project materials
+- Extracting and analyzing job requirements from job postings
+- Generating targeted resumes for specific roles
+- Creating candidate profiles and gap analyses
+- Building study plans and technical review material
+- Generating company-role mock interviews
+- Evaluating completed mock interview answers
 
-- `README.md`: repository overview and recommended workflow.
-- `CLAUDE / AGENTS.md`: rules for Codex and other agents working in this repository.
-- `pyproject.toml`, `uv.lock`, `.python-version`: Python environment metadata.
+The skill enforces critical grounding requirements and workflow constraints described in this file.
 
-Primary content directories:
+## Repository Overview
 
-- `个人简历/`: work experience, project experience, and targeted resume drafts.
-- `岗位要求/`: target company and role materials, organized as `岗位要求/公司/职位/岗位介绍.md` and `岗位要求.md`.
-- `网络面经/`: collected interview experiences and question patterns, named by company-role or generic role.
-- `知识题库/`: technical study material, interview QA, and review paths.
-- `面试模拟/`: company-role mock interview questions and post-answer evaluations.
+This is an interview and resume preparation knowledge base with a minimal Python 3.12 `uv` project skeleton. The main content is Markdown documentation organized into a structured workflow: job requirements → resume preparation → knowledge review → mock interviews → evaluation and improvement.
 
-Read the `README.md` in the relevant directory before adding or restructuring content.
+## Directory Structure
 
-## Knowledge Base Layout
+```
+.
+├── 个人简历/          # Personal resume, work history, projects, targeted resumes
+│   └── 面试准备/      # Interview preparation artifacts (profiles, plans, analyses)
+├── 岗位要求/          # Job requirements organized as 公司/职位/
+│   └── 公司/职位/     # Company/role folders containing:
+│       ├── 岗位介绍.md   # Raw job posting
+│       └── 岗位要求.md   # Analyzed requirements
+├── 网络面经/          # Interview experiences (公司-职位.md or 职位.md)
+├── 知识题库/          # Technical study material
+│   ├── 知识点/        # Systematic study notes
+│   ├── 面试QA/        # Interview Q&A scripts
+│   ├── 复习路径/      # Study sequences and priorities
+│   └── 知识题库阅读索引.md  # Main reading entry point
+└── 面试模拟/          # Mock interviews and evaluations
+```
 
-`知识题库/` is split by usage:
+Each directory contains its own README.md with specific guidance. Read the relevant README before adding or restructuring content.
 
-- `知识题库/知识点/`: systematic study notes, including concepts, principles, implementations, tradeoffs, failure modes, and project landing details.
-- `知识题库/面试QA/`: question-focused interview material, including high-frequency questions, answer scripts, follow-ups, scoring points, and common mistakes.
-- `知识题库/复习路径/`: reading order, P0/P1/P2 priorities, sprint plans, and mappings from interview questions to local material.
-- `知识题库/知识题库阅读索引.md`: the main reading entry point. Keep ordering here instead of using numeric filename prefixes.
+## Critical Content Rules
 
-Current topic groups include backend engineering, LLM/RAG/Agent, AIGC and data governance, and role/project validation.
+### Grounding Requirement
 
-## Content Placement Rules
+**All generated content must be grounded in local repository material.** Agents must NOT invent:
+- Personal work experience or employment history
+- Project metrics, scale, or business outcomes
+- Technology usage or technical decisions
+- Interview question sources or company-specific patterns
+- Job requirement claims not present in the job posting
 
-- Put new resume facts, project details, and work history in `个人简历/`.
-- Put raw job descriptions and analyzed role requirements in `岗位要求/公司/职位/`.
-- Put interview experiences, external question collections, and candidate retrospectives in `网络面经/`.
-- Put systematic technical explanations in `知识题库/知识点/`.
-- Put interview questions, follow-ups, and answer scripts in `知识题库/面试QA/`.
-- Put study sequence, priority, and question-to-material mappings in `知识题库/复习路径/`.
-- Put generated mock interviews and evaluations in `面试模拟/`.
+If an enhancement would be valuable but lacks evidence in local files, mark it as `待用户确认` (pending user confirmation).
 
-Do not use numeric order prefixes in Markdown filenames. Express reading order in `知识题库/知识题库阅读索引.md` or files under `知识题库/复习路径/`.
+### Mock Interview Scope Constraint
 
-## Naming Conventions
+When generating company-role mock interviews:
 
-- Job introduction: `岗位要求/公司/职位/岗位介绍.md`
+1. **List available options first:** Before generating, list all company-role combinations from `岗位要求/` and let the user select the target.
+
+2. **Stay within role requirements:** Every question must map back to a concrete requirement, bonus qualification, implicit interview signal, or high-probability topic in that role's `岗位要求.md`.
+
+3. **Supporting material only:** `网络面经/`, `个人简历/`, and `知识题库/` may enrich question wording, evidence examples, follow-up depth, and scoring criteria, but must NOT introduce questions outside the selected role's requirements.
+
+4. **Question-only format:** Initial mock interview files contain only questions, source references, competency tested, expected depth, follow-up probes, and scoring rubrics. Add reference answers during evaluation after the user responds.
+
+### Evidence Classification
+
+When analyzing resume materials or generating content, classify evidence strength:
+- `强证据` (strong evidence): Direct facts from resume/project files
+- `弱证据` (weak evidence): Implied or indirect support
+- `缺失证据` (missing evidence): Gap with no local support
+- `待用户确认` (pending confirmation): Useful claim that needs verification
+
+## File Naming Conventions
+
+Use these exact patterns (Chinese filenames are expected):
+
+- Job posting: `岗位要求/公司/职位/岗位介绍.md`
 - Job analysis: `岗位要求/公司/职位/岗位要求.md`
 - Targeted resume: `个人简历/职位-公司-简历.md`
 - Company-role interview experience: `网络面经/公司-职位.md`
 - Generic role interview experience: `网络面经/职位.md`
 - Mock interview: `面试模拟/职位-公司-yyyyMMdd-HHmmss.md`
-- Mock interview evaluation: update the original mock file or create `面试模拟/职位-公司-yyyyMMdd-HHmmss-评估.md`
+- Mock evaluation: Update original file or create `面试模拟/职位-公司-yyyyMMdd-HHmmss-评估.md`
 
-Chinese filenames are expected and should stay consistent with the surrounding directory.
+**Do not use numeric prefixes for ordering.** Express reading order in `知识题库/知识题库阅读索引.md` or files under `知识题库/复习路径/`.
 
-## Agent Content Rules
+## Knowledge Base Organization
 
-Agents must ground generated content in local repository material. Do not invent personal experience, project metrics, technology usage, interview sources, or job requirements. If a useful enhancement lacks evidence, mark it as `待用户确认`.
+`知识题库/` is split by usage pattern:
 
-When generating a company-role mock interview:
+- **知识点/**: Systematic study notes including concepts, principles, implementations, tradeoffs, failure modes, and project landing details.
+- **面试QA/**: Question-focused interview material including high-frequency questions, answer scripts, follow-ups, scoring points, and common mistakes.
+- **复习路径/**: Reading order, P0/P1/P2 priorities, sprint plans, and mappings from interview questions to local material.
+- **知识题库阅读索引.md**: Main reading entry point. Maintain ordering here instead of using numeric filename prefixes.
 
-- First list available company-role options from `岗位要求/`.
-- Use the selected role's `岗位要求.md` as the boundary for the question scope.
-- Each question must point back to a concrete requirement, bonus point, hidden interview signal, or high-probability topic in that `岗位要求.md`.
-- `网络面经/`, `个人简历/`, and `知识题库/` may enrich wording, evidence, follow-up depth, and scoring criteria, but must not introduce questions outside the selected role's requirements.
-- The initial mock interview should provide question-side information only; add reference answers during evaluation after the user answers.
+Current topic groups include backend engineering, LLM/RAG/Agent systems, AIGC and data governance, and role/project validation.
 
-When evaluating answers, add reference answers, score, strengths, gaps, corrections, better phrasing, and recommended review material.
+## Development Commands
 
-## Build, Test, and Development Commands
+```bash
+# Create virtual environment
+uv venv
 
-- `uv venv`: create virtual environment by using uv.
-- `uv sync`: install the Python 3.12 environment from `pyproject.toml` and `uv.lock`.
+# Install Python 3.12 environment from pyproject.toml and uv.lock
+uv sync
+
+# Alternative: install all packages
+uv sync --all-packages
+```
 
 There is no Markdown build step. Review Markdown changes directly in an editor or previewer before committing.
 
-## Commit & Pull Request Guidelines
+## Commit Guidelines
 
-Prefer descriptive imperative commit subjects, such as `Add RAG interview notes` or `Update resume project summary`.
+Use descriptive imperative commit subjects:
+- `Add RAG interview notes`
+- `Update resume project summary`
+- `Generate mock interview for Backend-CompanyX`
+- `Evaluate mock interview responses`
 
-Pull requests should include a short summary, changed directories, commands run, and screenshots or rendered previews for formatting-heavy Markdown changes. Link related job descriptions, issues, or interview targets when applicable.
+Pull requests should include:
+- Short summary of changes
+- Changed directories
+- Commands run (if applicable)
+- Screenshots or rendered previews for formatting-heavy Markdown changes
+- Links to related job descriptions or interview targets when applicable
